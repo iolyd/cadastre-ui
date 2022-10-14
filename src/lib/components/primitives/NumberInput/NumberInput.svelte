@@ -1,17 +1,16 @@
 <!--
 	@component
-	# Icon
-	The `Icon` component provides...
+	# Number Input
+	The `NumberInput` component...
 -->
 
 <script lang="ts" context="module">
 </script>
 
 <script lang="ts">
-	export let name: string; // keyof typeof icons;
 </script>
 
-<i></i>
+<input type="number" name="" id="">
 
 <style lang="scss">
 </style>
