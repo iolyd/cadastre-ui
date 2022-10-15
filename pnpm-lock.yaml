@@ -6,6 +6,7 @@ specifiers:
   '@sveltejs/package': next
   '@typescript-eslint/eslint-plugin': ^5.27.0
   '@typescript-eslint/parser': ^5.27.0
+  colord: ^2.9.3
   eslint: ^8.16.0
   eslint-config-prettier: ^8.3.0
   eslint-plugin-svelte3: ^4.0.0
@@ -15,9 +16,13 @@ specifiers:
   svelte: ^3.44.0
   svelte-check: ^2.7.1
   svelte-preprocess: ^4.10.6
+  svelte-preprocess-cssmodules: ^2.2.3
   tslib: ^2.3.1
   typescript: ^4.7.4
   vite: ^3.1.0
+
+dependencies:
+  colord: 2.9.3
 
 devDependencies:
   '@sveltejs/adapter-auto': 1.0.0-next.83
@@ -34,6 +39,7 @@ devDependencies:
   svelte: 3.51.0
   svelte-check: 2.9.2_sass@1.55.0+svelte@3.51.0
   svelte-preprocess: 4.10.7_3zdl52liprsvq5pqxbibodqiju
+  svelte-preprocess-cssmodules: 2.2.3_c36sqhgzdfaw4kmxogryyrffx4
   tslib: 2.4.0
   typescript: 4.8.4
   vite: 3.1.8_sass@1.55.0
@@ -528,6 +534,10 @@ packages:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
     dev: true
 
+  /big.js/6.2.1:
+    resolution: {integrity: sha512-bCtHMwL9LeDIozFn+oNhhFoq+yQ3BNdnsLSASUxLciOb1vgvpHsIO1dsENiGMgbb4SkP5TrzWzRiLddn8ahVOQ==}
+    dev: true
+
   /binary-extensions/2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
@@ -612,6 +622,10 @@ packages:
     resolution: {integrity: sha512-qiBjkpbMLO/HL68y+lh4q0/O1MZFj2RX6X/KmMa3+gJD3z+WwI1ZzDHysvqHGS3mP6mznPckpXmw1nI9cJjyRg==}
     hasBin: true
     dev: true
+
+  /colord/2.9.3:
+    resolution: {integrity: sha512-jeC1axXpnb0/2nn/Y1LPuLdgXBLH7aDcHu4KEKfqw3CUhX7ZpfBSlPKyqXE6btIgEzfWtrX3/tyBCaCvXvMkOw==}
+    dev: false
 
   /concat-map/0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
@@ -1927,6 +1941,19 @@ packages:
       svelte: '>=3.19.0'
     dependencies:
       svelte: 3.51.0
+    dev: true
+
+  /svelte-preprocess-cssmodules/2.2.3_c36sqhgzdfaw4kmxogryyrffx4:
+    resolution: {integrity: sha512-CO6q6oQw5yihKJnvMJfDLojs0aep5RFpiwduJg2fOcAwqNbgr8xmLjPo07IuHOzrDUxZt5AmE5BJMG8tjT9NLQ==}
+    peerDependencies:
+      svelte: ^3.20.0
+      typescript: ^4.0.0
+    dependencies:
+      acorn: 8.8.0
+      big.js: 6.2.1
+      magic-string: 0.25.9
+      svelte: 3.51.0
+      typescript: 4.8.4
     dev: true
 
   /svelte-preprocess/4.10.7_3zdl52liprsvq5pqxbibodqiju:
