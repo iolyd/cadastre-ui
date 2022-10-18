@@ -8,63 +8,103 @@
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher, onDestroy } from 'svelte';
-
 	export let host: HTMLElement | undefined = undefined;
-	export let easing: string = 'linear';
-	export let duration = 250;
+	export let easing: string = 'cubic-bezier(0,0,0,1)';
+	export let duration = 1200;
+	export let delay = 0;
 	export let opacityStart = 1;
 	export let opacityEnd = 0;
 	export let opacityEasing = easing;
 	export let opacityDuration = duration;
-	/**
-	 * Ratio of the host's hypothenuse used for the starting ripple size.
-	 */
+	export let opacityDelay = delay;
 	export let spreadStart = 0;
-	/**
-	 * Ratio of the host's hypothenuse used as the target (end) ripple size.
-	 */
 	export let spreadEnd = 1;
 	export let spreadEasing = easing;
 	export let spreadDuration = duration;
+	export let spreadDelay = delay;
+	export let color: string = 'currentColor';
+	export let colorStart: string = color;
+	export let colorEnd: string = colorStart;
+	export let colorEasing = easing;
+	export let colorDuration = duration;
+	export let colorDelay = delay;
+	export let blur: number = 0;
 
 	let ref: HTMLDivElement;
 	let destructor: () => void;
-	let ripples: { x: number; y: number; spread: boolean; fade: boolean }[] = [];
-	const dispatch = createEventDispatcher();
+	let ripples: { x: number; y: number; d: number; animations: number }[] = [];
 
-	function remove(e: AnimationEvent, ripple: typeof ripples[number]) {
-		if (e.animationName === 'spread') {
-			ripples.splice(ripples.indexOf(ripple), 1);
+	function add(e: MouseEvent) {
+		if (ref) {
+			const rect = ref.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+			const d = 2 * Math.hypot(rect.width, rect.height);
+			const r = {
+				x,
+				y,
+				d,
+				animations: 0,
+			};
+			ripples.push(r);
+			ripples = ripples;
 		}
 	}
 
-	function createRipple(e: MouseEvent) {
-		// ripples.push({
-		// 	x: e.clientX,
-		// 	y: e.clientY
-		// });
-		// ripples = ripples;
+	function start(e: AnimationEvent, ripple: typeof ripples[number]) {
+		ripple.animations++;
+	}
+
+	function end(e: AnimationEvent, ripple: typeof ripples[number]) {
+		ripple.animations--;
+		if (!ripple.animations) {
+			ripples.splice(ripples.indexOf(ripple), 1);
+			ripples = ripples;
+		}
 	}
 
 	function listen(element: HTMLElement | null) {
 		if (destructor) destructor();
 		if (element) {
-			element.addEventListener('click', createRipple);
+			element.addEventListener('pointerdown', add);
 			destructor = () => {
-				element.removeEventListener('click', createRipple);
+				element.removeEventListener('pointerdown', add);
 			};
 		}
 	}
 
 	$: listen(host ?? ref?.parentElement);
-
-	onDestroy(() => {});
 </script>
 
-<div class="container" style:--easing={easing} bind:this={ref}>
-	{#each ripples as r}
-		<div class="ripple" on:animationend={(e) => remove(e, r)} />
+<div
+	class="container"
+	bind:this={ref}
+	style:--opacity-start={opacityStart}
+	style:--opacity-end={opacityEnd}
+	style:--opacity-easing={opacityEasing}
+	style:--opacity-duration="{opacityDuration}ms"
+	style:--opacity-delay="{opacityDelay}ms"
+	style:--spread-start={spreadStart}
+	style:--spread-end={spreadEnd}
+	style:--spread-easing={spreadEasing}
+	style:--spread-duration="{spreadDuration}ms"
+	style:--spread-delay="{spreadDelay}ms"
+	style:--color-start={colorStart}
+	style:--color-end={colorEnd}
+	style:--color-easing={colorEasing}
+	style:--color-duration="{colorDuration}ms"
+	style:--color-delay="{colorDelay}ms"
+	style:--blur="{blur}px"
+>
+	{#each ripples as r (r)}
+		<div
+			class="ripple"
+			style:--x="{r.x}px"
+			style:--y="{r.y}px"
+			style:--d="{r.d}px"
+			on:animationstart={(e) => start(e, r)}
+			on:animationend={(e) => end(e, r)}
+		/>
 	{/each}
 </div>
 
@@ -81,30 +121,44 @@
 	}
 
 	.ripple {
-		background-color: white;
-		top: 0;
-		left: 0;
+		position: absolute;
+		filter: blur(var(--blur));
+		left: var(--x);
+		top: var(--y);
+		background-color: var(--color-start);
 		aspect-ratio: 1 / 1;
 		border-radius: 50%;
 		transform: translate(-50%, -50%);
-		animation: 1s ease-out 0s 1 fade, 1s ease-out 0s 1 spread;
+		animation: var(--opacity-duration) var(--opacity-easing) var(--opacity-delay) 1 fade
+				forwards,
+			var(--spread-duration) var(--spread-easing) var(--spread-delay) 1 spread forwards,
+			var(--color-duration) var(--color-easing) var(--color-delay) 1 color forwards;
 	}
 
 	@keyframes spread {
 		from {
-			width: 0;
+			width: calc(var(--d) * var(--spread-start));
 		}
 		to {
-			width: 100%;
+			width: calc(var(--d) * var(--spread-end));
 		}
 	}
 
 	@keyframes fade {
 		from {
-			opacity: 1;
+			opacity: var(--opacity-start);
 		}
 		to {
-			opacity: 0;
+			opacity: var(--opacity-end);
+		}
+	}
+
+	@keyframes color {
+		from {
+			background-color: var(--color-start);
+		}
+		to {
+			background-color: var(--color-end);
 		}
 	}
 </style>

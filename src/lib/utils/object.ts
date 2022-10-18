@@ -41,12 +41,10 @@ export function mergeObjects(base: Record<any, any>, ...modifications: Record<an
  * @returns Object stripped of keys with empty values.
  */
 export function removeEmptyProps<T>(obj: T extends Record<any, any> ? T : never): Partial<T> {
-	return Object.fromEntries(
-		Object.entries(obj)
-			.filter(([k, v]) => v !== null || v !== '' || v !== undefined)
-			.map(([k, v]) => [
-				k,
-				isObject(v) ? removeEmptyProps(v as Record<string | number, unknown>) : v
-			])
-	);
+	const keys = Object.keys(obj) as (keyof T)[];
+	const entries = keys
+		.filter((k) => obj[k] !== null && obj[k] !== '' && obj[k] !== undefined)
+		.map((k) => [k, isObject(obj[k]) ? removeEmptyProps(obj[k]) : obj[k]]);
+
+	return Object.fromEntries(entries);
 }
