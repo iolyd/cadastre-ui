@@ -3,7 +3,7 @@ import { Plugin } from 'vite';
 
 const PATHS = {
 	CONSTANTS: path.resolve('src', 'utils', 'constants.ts'),
-	ICONS: path.resolve('src', 'components', 'primitives', 'Icon', 'svgs')
+	ICONS: path.resolve('src', 'components', 'Icon', 'svgs'),
 };
 
 type CadastreOptions = {};
@@ -30,7 +30,7 @@ export default function plugin({}: CadastreOptions): Plugin[] {
 				}
 				server.watcher.on('add', watch);
 				server.watcher.on('change', watch);
-			}
+			},
 		},
 		{
 			/**
@@ -45,7 +45,7 @@ export default function plugin({}: CadastreOptions): Plugin[] {
 				} catch (error) {
 					console.error(error);
 				}
-			}
-		}
+			},
+		},
 	];
 }

@@ -1,5 +1,5 @@
 import type { Plugin } from 'vite';
-import cadastreGlobals from './globals';
+import cadastreConfig from './config';
 import cadastreIcons from './icons';
 import cadastreStyles from './styles';
 
@@ -7,7 +7,7 @@ type CadastreOptions = {
 	/**
 	 * Options for cadastre's globals plugin.
 	 */
-	globals?: Parameters<typeof cadastreGlobals>[0];
+	config?: Parameters<typeof cadastreConfig>[0];
 	/**
 	 * Options for cadastre's styles plugin.
 	 */
@@ -23,7 +23,7 @@ type CadastreOptions = {
  */
 export default function cadastre(options: CadastreOptions = {}): Plugin[] {
 	return [
-		cadastreGlobals(options.globals),
+		cadastreConfig(options.config),
 		...cadastreStyles(options.styles),
 		...cadastreIcons(options.icons),
 	];

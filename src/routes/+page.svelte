@@ -2,7 +2,10 @@
 </script>
 
 <script lang="ts">
-	import { Button } from '$lib/components/primitives';
+	import Button from '$lib/components/Button/Button.svelte';
+	// import { sizes } from '$styles/global.css';
+	// import { _sizes as sizes } from 'virtual:cadastre/themes';
+	// sizes;
 </script>
 
 <!-- <h1>Welcome to your library project</h1>
@@ -14,21 +17,28 @@
 		<h1>Cadastre UI</h1>
 		<span>A UI component system for svelte</span>
 	</hgroup>
-
-	<Button class="test-class">Button content!</Button>
+	<hr />
+	<pre>
+		<!-- {JSON.stringify(sizes, undefined, 4)} -->
+	</pre>
+	<hr />
+	<!-- <select name="" id="" bind:value={variant}>
+		{#each vs as v}
+			<option value={v}>{v}</option>
+		{/each}
+	</select>
+	<label for=""
+		>loading
+		<input type="checkbox" name="" bind:value={loading} id="" />
+	</label> -->
+	<Button
+		><span slot="leading">Leading!</span>Button content!<span slot="trailing">Trailing!</span
+		></Button
+	>
 </article>
 
 <style lang="scss">
-	// hgroup {
-	// 	padding: 1rem;
-	// }
-
-	article :global(.test-class) {
-		background-color: blue;
-		box-shadow: 0 1em 1em -1em black;
-
-		&:hover {
-			background-color: purple;
-		}
+	article {
+		padding: 4rem;
 	}
 </style>

@@ -4,6 +4,31 @@ A customizable Svelte UI system with a compositional mindset.
 
 🚧 Under construction 🚧
 
+## Usage
+
+To use Cadastre, make sure to add the provided vite plugin to your Svelte / SvelteKit project:
+
+```ts
+// vite.config.ts
+import { sveltekit } from '@sveltejs/kit/vite';
+import type { UserConfig } from 'vite';
+import cadastre, { type CadastreOptions } from 'cadastre-ui/plugin';
+
+// Customize the UI system's styles, icons, and more.
+const customizations: CadastreOptions = {
+	...
+}
+
+const config: UserConfig = {
+	plugins: [
+		cadastre(),
+		sveltekit()
+	],
+};
+
+export default config;
+```
+
 ## Components
 
 ### Scripts
@@ -20,8 +45,7 @@ _To do_
 
 ## Actions
 
----
-
+<!--
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
@@ -60,3 +84,4 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+-->

@@ -8,6 +8,7 @@
 </script>
 
 <script lang="ts">
+	import * as styles from './Ripple.css';
 	export let host: HTMLElement | undefined = undefined;
 	export let easing: string = 'cubic-bezier(0,0,0,1)';
 	export let duration = 1200;
@@ -39,7 +40,7 @@
 			const rect = ref.getBoundingClientRect();
 			const x = e.clientX - rect.left;
 			const y = e.clientY - rect.top;
-			const d = 2 * Math.hypot(rect.width, rect.height);
+			const d = 2 * Math.max(Math.hypot(x, y), Math.hypot(rect.width - x, rect.height - y));
 			const r = {
 				x,
 				y,
@@ -77,7 +78,7 @@
 </script>
 
 <div
-	class="container"
+	class={styles.container}
 	bind:this={ref}
 	style:--opacity-start={opacityStart}
 	style:--opacity-end={opacityEnd}
@@ -98,7 +99,7 @@
 >
 	{#each ripples as r (r)}
 		<div
-			class="ripple"
+			class={styles.ripple}
 			style:--x="{r.x}px"
 			style:--y="{r.y}px"
 			style:--d="{r.d}px"
@@ -107,58 +108,3 @@
 		/>
 	{/each}
 </div>
-
-<style lang="scss">
-	.container {
-		pointer-events: none;
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		border-radius: inherit;
-		overflow: hidden;
-	}
-
-	.ripple {
-		position: absolute;
-		filter: blur(var(--blur));
-		left: var(--x);
-		top: var(--y);
-		background-color: var(--color-start);
-		aspect-ratio: 1 / 1;
-		border-radius: 50%;
-		transform: translate(-50%, -50%);
-		animation: var(--opacity-duration) var(--opacity-easing) var(--opacity-delay) 1 fade
-				forwards,
-			var(--spread-duration) var(--spread-easing) var(--spread-delay) 1 spread forwards,
-			var(--color-duration) var(--color-easing) var(--color-delay) 1 color forwards;
-	}
-
-	@keyframes spread {
-		from {
-			width: calc(var(--d) * var(--spread-start));
-		}
-		to {
-			width: calc(var(--d) * var(--spread-end));
-		}
-	}
-
-	@keyframes fade {
-		from {
-			opacity: var(--opacity-start);
-		}
-		to {
-			opacity: var(--opacity-end);
-		}
-	}
-
-	@keyframes color {
-		from {
-			background-color: var(--color-start);
-		}
-		to {
-			background-color: var(--color-end);
-		}
-	}
-</style>

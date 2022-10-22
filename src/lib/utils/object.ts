@@ -6,11 +6,13 @@ export function isObject(value: unknown) {
 }
 
 /**
- * Helper to deep merge objects and overcome `Object.assign` or `{...a, ...b}` ignoring nested objects. **To avoid
- * affecting the original `base` object, simply pass it as a destructured assignment: `{...base}`**
+ * Helper to deep merge objects and overcome `Object.assign` or `{...a, ...b}` ignoring nested
+ * objects. **To avoid affecting the original `base` object, simply pass it as a destructured
+ * assignment: `{...base}`**
  *
  * @param base Reference object used for the base values.
- * @param modifications Modification objects to apply on top of the base. Modifications applied from left to right.
+ * @param modifications Modification objects to apply on top of the base. Modifications applied from
+ *   left to right.
  * @returns Merged object of the base with the applied modifications.
  */
 export function mergeObjects(base: Record<any, any>, ...modifications: Record<any, any>[]) {

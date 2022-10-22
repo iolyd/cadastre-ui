@@ -2,19 +2,19 @@
 </script>
 
 <script lang="ts">
-	import { routes } from '$utils/routes';
+	let darkmode = false;
 </script>
 
-<nav>
-	<a href="/">Home</a>
-	{#each routes as r}
-		<a href={r.href}>{r.title}</a>
-	{/each}
-</nav>
+<!-- <main class="{darkmode ? styles.dark : styles.light} {styles.s}">
+	<nav>
+		<a href="/">Home</a>
+		{#each routes as r}
+			<a href={r.href}>{r.title}</a>
+		{/each}
+		<label for="">
+			Toggle dark mode!
+			<input type="checkbox" name="" id="" bind:checked={darkmode} />
+		</label>
+	</nav> -->
 <slot />
-
-<style lang="scss">
-	a {
-		padding: 1rem;
-	}
-</style>
+<!-- </main> -->

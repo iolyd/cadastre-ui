@@ -2,6 +2,20 @@ import styles, { type CSPair } from 'ansi-styles';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
+export const PATHS = {
+	PRETTIER_CONFIG: resolve('.prettierrc'),
+	STYLES: {
+		SOURCE: resolve('src', 'lib', 'utils', 'constants.ts'),
+		OUTPUT: resolve('src', 'lib', 'styles', 'theme.css.ts'),
+	},
+	ICONS: {
+		SOURCE: resolve('src', 'lib', 'components', 'Icon', 'svgs'),
+		OUTPUT: resolve('src', 'lib', 'components', 'Icon', 'icons.ts'),
+	},
+};
+
+export const PRETTIER_CONFIG = JSON.parse(readFileSync(PATHS.PRETTIER_CONFIG).toString());
+
 export function PLUGIN_NAME(name: string) {
 	return `cadastre-${name}`;
 }
@@ -28,17 +42,3 @@ export const PLUGIN_CONSOLE = class {
 		console.info(...this._format(styles.greenBright, ...args));
 	}
 };
-
-export const PATHS = {
-	PRETTIER_CONFIG: resolve('.prettierrc'),
-	STYLES: {
-		SOURCE: resolve('src', 'lib', 'utils', 'constants.ts'),
-		OUTPUT: resolve('src', 'lib', 'styles', 'vars.css'),
-	},
-	ICONS: {
-		SOURCE: resolve('src', 'lib', 'components', 'primitives', 'Icon', 'svgs'),
-		OUTPUT: resolve('src', 'lib', 'components', 'primitives', 'Icon', 'icons.ts'),
-	},
-};
-
-export const PRETTIER_CONFIG = JSON.parse(readFileSync(PATHS.PRETTIER_CONFIG).toString());

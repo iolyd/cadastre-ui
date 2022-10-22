@@ -1,5 +1,5 @@
-import type { Plugin } from 'vite';
-import { PLUGIN_CONSOLE, PLUGIN_NAME } from './common';
+import { mergeConfig, type Plugin } from 'vite';
+import { PLUGIN_NAME } from './common';
 
 type CadastreGlobalsOptions = {
 	/**
@@ -16,19 +16,20 @@ export default function cadastreGlobals({
 }: CadastreGlobalsOptions = {}): Plugin {
 	return {
 		// Setting the expected global variable(s).
-		name: PLUGIN_NAME('global-variables'),
-		apply: 'build',
-		config: () => {
-			return {
+		name: PLUGIN_NAME('config'),
+		config: (config) => {
+			// const svelteAlias = svelteConfig.kit?.alias ?? {};
+			// const alias = Object.fromEntries(
+			// 	Object.entries(svelteAlias).map(([at, path]) => [at, join(cwd(), path)])
+			// );
+			return mergeConfig(config, {
+				// resolve: {
+				// 	alias,
+				// },
 				define: {
 					__VITE_APP_VERSION__: appVersion,
 				},
-			};
-		},
-		async buildStart() {
-			PLUGIN_CONSOLE.info(
-				'updated global version variable: __VITE_APP_VERSION__ = ' + appVersion
-			);
+			});
 		},
 	};
 }
