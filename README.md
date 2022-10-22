@@ -1,8 +1,12 @@
-# Cadastre
+<h1 align="center">Cadastre</h1>
 
-**A customizable Svelte UI system with a compositional mindset.**
+<p align="center"><b>A customizable UI library for Svelte, with a compositional mindset.</b></p>
 
-🚧 Under construction 🚧
+<p align="center">🚧 Under construction 🚧</p>
+
+<br>
+
+## General
 
 The Cadastre ui library is built using [Svelte](https://svelte.dev/) components and [Vanilla Extract](https://vanilla-extract.style/)-driven styles.
 
