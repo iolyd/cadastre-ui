@@ -1,19 +1,22 @@
-import type { Plugin } from 'vite';
-import cadastreConfig from './config';
+import { mergeConfig, type Plugin } from 'vite';
+import { PLUGIN_NAME } from './common';
 import cadastreIcons from './icons';
 import cadastreStyles from './styles';
 
-type CadastreOptions = {
+export type CadastreConfig = {
 	/**
-	 * Options for cadastre's globals plugin.
+	 * Define an app versioning string that the plugin will inject into the app using vite's
+	 * `define` option to search-and-replace occurrences. This version identifier is used internally
+	 * by the ui components and utils, but it can also be used externally by invoking the global
+	 * variable named: `__CADASTRE_APP_VERSION__`.
 	 */
-	config?: Parameters<typeof cadastreConfig>[0];
+	appVersion?: string;
 	/**
-	 * Options for cadastre's styles plugin.
+	 * Customize Cadastre's styles for your app.
 	 */
 	styles?: Parameters<typeof cadastreStyles>[0];
 	/**
-	 * Options for cadastre's icons plugin.
+	 * Customize how Cadastre handles its icon assets.
 	 */
 	icons?: Parameters<typeof cadastreIcons>[0];
 };
@@ -21,10 +24,24 @@ type CadastreOptions = {
 /**
  * Configurable vite plugin for Cadastre-ui.
  */
-export default function cadastre(options: CadastreOptions = {}): Plugin[] {
+export default function cadastre({
+	appVersion = JSON.stringify(Date.now().toString()),
+	styles,
+	icons,
+}: CadastreConfig = {}): Plugin[] {
 	return [
-		cadastreConfig(options.config),
-		...cadastreStyles(options.styles),
-		...cadastreIcons(options.icons),
+		{
+			name: PLUGIN_NAME('config'),
+			config: (config) => {
+				return mergeConfig(config, {
+					// Set the expected global variable(s).
+					define: {
+						__CADASTRE_APP_VERSION__: appVersion,
+					},
+				});
+			},
+		},
+		...cadastreStyles(styles),
+		...cadastreIcons(icons),
 	];
 }

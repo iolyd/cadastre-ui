@@ -8,6 +8,10 @@ import { parse as parseSvg, type INode } from 'svgson';
 import type { Plugin } from 'vite';
 import { PATHS, PLUGIN_CONSOLE, PLUGIN_NAME, PRETTIER_CONFIG } from './common';
 
+type CadastreIconsConfig = {
+	source?: string;
+};
+
 const PATH_TYPES = ['primary', 'secondary'];
 
 /**
@@ -42,7 +46,7 @@ async function extractSvgPaths(svg: INode) {
  */
 export default function cadastreIcons({
 	source = PATHS.ICONS.SOURCE,
-}: CadastreIconsOptions = {}): Plugin[] {
+}: CadastreIconsConfig = {}): Plugin[] {
 	async function generateIcons() {
 		PLUGIN_CONSOLE.log('generating icons form svg source assets...');
 
@@ -105,9 +109,7 @@ export default function cadastreIcons({
 
 	return [
 		{
-			// Plugin for dev.
 			name: PLUGIN_NAME('watch-icons'),
-			// apply: 'serve',
 			configureServer(server) {
 				async function watch(abspath: string) {
 					if (
@@ -122,23 +124,10 @@ export default function cadastreIcons({
 				server.watcher.on('change', watch);
 			},
 			buildStart: {
-				// order: 'pre',
-				// sequential: true,
 				async handler() {
 					generateIcons();
 				},
 			},
 		},
-		// {
-		// 	// Plugin for prod.
-		// 	name: PLUGIN_NAME('build-icons'),
-		// 	apply: 'build',
-		// 	writeBundle() {
-		// 		generateIcons();
-		// 	},
-		// },
 	];
 }
-type CadastreIconsOptions = {
-	source?: string;
-};

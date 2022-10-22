@@ -5,7 +5,7 @@
  * lib/components/Icon/svgs.
  * All changes added manually here will be lost on next iteration run of plugin's generators.
  *
- * Generated at: Fri Oct 21 2022 21:46:43 GMT-0400 (GMT-04:00)
+ * Generated at: Fri Oct 21 2022 23:48:49 GMT-0400 (GMT-04:00)
  *
  * ⚠️ WARNING ⚠️
  */

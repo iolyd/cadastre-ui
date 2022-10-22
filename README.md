@@ -1,29 +1,52 @@
-# Cadastre UI
+# Cadastre
 
-A customizable Svelte UI system with a compositional mindset.
+**A customizable Svelte UI system with a compositional mindset.**
 
 🚧 Under construction 🚧
 
+The Cadastre ui library is built using [Svelte](https://svelte.dev/) components and [Vanilla Extract](https://vanilla-extract.style/)-driven styles.
+
 ## Usage
 
-To use Cadastre, make sure to add the provided vite plugin to your Svelte / SvelteKit project:
+### Installing
+
+To use Cadastre, simply install its package:
+
+```sh
+npm install cadastre-ui
+```
+
+and then include the provided vite plugin in your project's `vite.config.plugins` array:
 
 ```ts
 // vite.config.ts
 import { sveltekit } from '@sveltejs/kit/vite';
 import type { UserConfig } from 'vite';
-import cadastre, { type CadastreOptions } from 'cadastre-ui/plugin';
-
-// Customize the UI system's styles, icons, and more.
-const customizations: CadastreOptions = {
-	...
-}
+import cadastre, { type CadastreConfig } from 'cadastre-ui/plugin';
 
 const config: UserConfig = {
-	plugins: [
-		cadastre(),
-		sveltekit()
-	],
+  plugins: [cadastre(), sveltekit()],
+};
+
+export default config;
+```
+
+### Customizing
+
+You can easily customize the library's colors along with other generic styling properties using your own color theme(s), size charts, and detailing properties:
+
+```ts
+// vite.config.ts
+import { sveltekit } from '@sveltejs/kit/vite';
+import type { UserConfig } from 'vite';
+import cadastre, { type CadastreConfig } from 'cadastre-ui/plugin';
+
+const myCadastreConfig: CadastreConfig = {
+  // Styles customization and more...
+};
+
+const config: UserConfig = {
+  plugins: [cadastre(myCadastreConfig), sveltekit()],
 };
 
 export default config;
