@@ -3,6 +3,6 @@
 import { globalStyle } from '@vanilla-extract/css';
 import { vars } from './theme.css';
 
-const app = globalStyle(':root', {
+const app = globalStyle('main', {
 	backgroundColor: vars.colors.base[500],
 });

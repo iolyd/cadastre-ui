@@ -9,9 +9,17 @@ export const PATHS = {
 		OUTPUT: resolve('src', 'lib', 'styles', 'theme.css.ts'),
 	},
 	ICONS: {
-		SOURCE: resolve('src', 'lib', 'components', 'Icon', 'svgs'),
+		SOURCE: resolve('src', 'lib', 'components', 'Icon', '_svgs'),
 		OUTPUT: resolve('src', 'lib', 'components', 'Icon', 'icons.ts'),
 	},
+	// STYLES: {
+	// 	SOURCE: '../utils/constants.ts',
+	// 	OUTPUT: '../styles/theme.css.ts',
+	// },
+	// ICONS: {
+	// 	SOURCE: '../components/Icon/_svgs',
+	// 	OUTPUT: '../components/Icon/icons.ts',
+	// },
 };
 
 export const PRETTIER_CONFIG = JSON.parse(readFileSync(PATHS.PRETTIER_CONFIG).toString());

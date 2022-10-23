@@ -1,4 +1,5 @@
 import adapter from '@sveltejs/adapter-auto';
+import path from 'path';
 import preprocess from 'svelte-preprocess';
 
 /**
@@ -27,7 +28,7 @@ const config = {
 		cssHash: ({ hash, css /* name, filename */ }) => `cadastre-${hash(css)}`,
 	},
 	package: {
-		// source: 'src/lib/',
+		files: (filepath) => !filepath.split(path.sep).some((segment) => segment.startsWith('_')),
 	},
 };
 
